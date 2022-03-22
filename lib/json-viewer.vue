@@ -31,7 +31,9 @@
         :preview-mode="previewMode"
         :show-array-index="showArrayIndex"
         :show-double-quotes="showDoubleQuotes"
+        :clickable="clickable"
         @keyclick="onKeyclick"
+        @fieldClick="$emit('fieldClick', $event)"
       />
     </div>
     <div 
@@ -102,7 +104,11 @@ export default {
     showDoubleQuotes: {
       type: Boolean,
       default: false,
-    }
+    },
+    clickable: {
+      type: Boolean,
+      default: false,
+    },
   },
   provide () {
     return {

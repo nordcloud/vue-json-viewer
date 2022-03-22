@@ -1,6 +1,6 @@
 {
   "name": "vue-json-viewer",
-  "version": "2.2.22",
+  "version": "2.2.23",
   "description": "vuejs展示json的组件",
   "main": "vue-json-viewer.js",
   "files": [
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chenfengjw163/vue-json-viewer.git"
+    "url": "git+https://github.com/nordcloud/vue-json-viewer.git"
   },
   "keywords": [
     "vue",
