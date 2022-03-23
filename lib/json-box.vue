@@ -33,12 +33,21 @@ export default {
       type: String,
       default: '$',
     },
+    clickable: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
       expand: true,
       forceExpandMe: this.forceExpand,
     }
+  },
+  computed: {
+    thisClickable() {
+      return this.clickable && ['string', 'number', 'boolean'].includes(typeof this.value) || this.value === null;
+    },
   },
   mounted() {
     this.expand = this.previewMode || (this.depth >= this.expandDepth ? false : true) || this.forceExpandMe
@@ -149,6 +158,7 @@ export default {
         showArrayIndex: this.showArrayIndex,
         showDoubleQuotes: this.showDoubleQuotes,
         path: this.path,
+        clickable: this.clickable,
       },
       on: {
         'update:expand': value => {
@@ -157,17 +167,28 @@ export default {
         'update:expandAll': value => {
           this.expand = value
           this.forceExpandMe = this.expand
-        }
+        },
+        fieldClick: data => {
+          this.$emit('fieldClick', data);
+        },
       }
     }))
 
+    const clickHandler = {
+      click: () => {
+        this.$emit("fieldClick", {path: this.path, value: this.value});
+      },
+    };
+    const spanClass = {class: {flex: typeof this.value === 'string'}};
     return h('div', {
       class: {
         'jv-node': true,
         'jv-key-node': Boolean(this.keyName) && !complex,
-        'toggle': !this.previewMode && complex
-      }
-    }, elements)
+        'toggle': !this.previewMode && complex,
+        'jv-clickable': this.thisClickable,
+      },
+      on: this.thisClickable ? clickHandler : {},
+    }, this.thisClickable ? [h('span', spanClass, elements)] : elements)
   }
 }
 </script>
@@ -191,6 +212,17 @@ export default {
 
   & .jv-node {
     margin-left: 25px;
+  }
+}
+
+.jv-clickable span {
+  &.flex {
+    display: inline-flex;
+  }
+
+  &:hover {
+    background-color: #FFE0B2;
+    cursor: pointer;
   }
 }
 </style>

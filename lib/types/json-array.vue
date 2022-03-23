@@ -23,6 +23,10 @@ export default {
     showArrayIndex: Boolean,
     showDoubleQuotes: Boolean,
     path: String,
+    clickable: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
@@ -112,7 +116,13 @@ export default {
             showArrayIndex: this.showArrayIndex,
             showDoubleQuotes: this.showDoubleQuotes,
             path: `${this.path}.${key}`,
-          }
+            clickable: this.clickable,
+          },
+          on: {
+            fieldClick: (data) => {
+              this.$emit('fieldClick', data);
+            },
+          },
         }))
       })
     }
