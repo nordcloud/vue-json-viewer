@@ -151,4 +151,3 @@ examples/dist/
 /ssr.js
 /style.css
 yarn.lock
-package-lock.json

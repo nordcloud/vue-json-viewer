@@ -115,7 +115,7 @@ export default {
             forceExpand: this.forceExpand,
             showArrayIndex: this.showArrayIndex,
             showDoubleQuotes: this.showDoubleQuotes,
-            path: `${this.path}.${key}`,
+            path: `${this.path}[${key}]`,
             clickable: this.clickable,
           },
           on: {
