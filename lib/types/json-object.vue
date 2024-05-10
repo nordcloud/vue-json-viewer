@@ -115,6 +115,8 @@ export default {
         if (this.ordered.hasOwnProperty(key)) {
           let value = this.ordered[key]
 
+          const path = key.includes(" ") ? `${this.path}['${key}']` : `${this.path}.${key}`;
+
           elements.push(h(JsonBox, {
             key,
             props: {
@@ -126,7 +128,7 @@ export default {
               forceExpand: this.forceExpand,
               showArrayIndex: this.showArrayIndex,
               showDoubleQuotes: this.showDoubleQuotes,
-              path: `${this.path}.${key}`,
+              path,
               clickable: this.clickable,
             },
             on: {
